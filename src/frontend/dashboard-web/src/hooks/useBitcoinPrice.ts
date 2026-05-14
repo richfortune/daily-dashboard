@@ -19,13 +19,13 @@ export function useBitcoinPrice(): BitcoinState {
                 setLoading(true);
 
                 const response = await fetch(
-                    "https://api.coinbase.com/v2/prices/BTC-USD/spot"
+                    "http://localhost:5000/api/bitcoin"
                 );
 
                 const data = await response.json();
 
-                setPrice(`$${Number(data.data.amount).toLocaleString()}`);
-                setLastUpdated(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                setPrice(data.price);
+                setLastUpdated(data.lastUpdated);
                 setError(null);
             } catch (err) {
                 setError("Errore nel recupero dati");

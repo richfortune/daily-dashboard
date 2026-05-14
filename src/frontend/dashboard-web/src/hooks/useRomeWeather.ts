@@ -55,7 +55,7 @@ export function useRomeWeather(): RomeWeatherState {
                 setLoading(true);
 
                 const response = await fetch(
-                    "https://api.open-meteo.com/v1/forecast?latitude=41.9028&longitude=12.4964&current=temperature_2m,weather_code"
+                    "http://localhost:5000/api/weather/rome"
                 );
 
                 if (!response.ok) {
@@ -64,20 +64,9 @@ export function useRomeWeather(): RomeWeatherState {
 
                 const data = await response.json();
 
-                const currentTemp = data.current?.temperature_2m;
-                const currentCode = data.current?.weather_code;
-
-                setTemperature(
-                    typeof currentTemp === "number" ? `${Math.round(currentTemp)}°C` : "--"
-                );
-
-                setDescription(
-                    typeof currentCode === "number"
-                        ? getWeatherDescription(currentCode)
-                        : "Weather unavailable"
-                );
-
-                setLastUpdated(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                setTemperature(data.temperature);
+                setDescription(data.description);
+                setLastUpdated(data.lastUpdated);
                 setError(null);
             } catch (err) {
                 setError("Errore nel recupero meteo");

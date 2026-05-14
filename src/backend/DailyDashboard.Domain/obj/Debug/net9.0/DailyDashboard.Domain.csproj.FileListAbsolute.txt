@@ -1,0 +1,12 @@
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\bin\Debug\net9.0\DailyDashboard.Domain.deps.json
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\bin\Debug\net9.0\DailyDashboard.Domain.dll
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\bin\Debug\net9.0\DailyDashboard.Domain.pdb
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\obj\Debug\net9.0\DailyDashboard.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\obj\Debug\net9.0\DailyDashboard.Domain.AssemblyInfoInputs.cache
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\obj\Debug\net9.0\DailyDashboard.Domain.AssemblyInfo.cs
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\obj\Debug\net9.0\DailyDashboard.Domain.csproj.CoreCompileInputs.cache
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\obj\Debug\net9.0\DailyDashboard.Domain.sourcelink.json
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\obj\Debug\net9.0\DailyDashboard.Domain.dll
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\obj\Debug\net9.0\refint\DailyDashboard.Domain.dll
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\obj\Debug\net9.0\DailyDashboard.Domain.pdb
+C:\Work\Antigravity\daily-dashboard\src\backend\DailyDashboard.Domain\obj\Debug\net9.0\ref\DailyDashboard.Domain.dll
