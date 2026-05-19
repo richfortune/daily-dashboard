@@ -31,7 +31,7 @@ export function useBitcoinPrice(): BitcoinState {
                 const data = await response.json();
 
                 setPrice(data.price);
-                setLastUpdated(data.lastUpdated);
+                setLastUpdated(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
                 setError(null);
             } catch (err) {
                 setError("Errore nel recupero dati");
