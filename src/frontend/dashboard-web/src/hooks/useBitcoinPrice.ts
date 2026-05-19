@@ -13,14 +13,20 @@ export function useBitcoinPrice(): BitcoinState {
     const [error, setError] = useState<string | null>(null);
     const [lastUpdated, setLastUpdated] = useState<string | null>(null);
 
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
+    console.log("API BASE URL:", apiBaseUrl);
+
+
+
     useEffect(() => {
         async function fetchBitcoin() {
             try {
                 setLoading(true);
 
-                const response = await fetch(
-                    "http://localhost:5000/api/bitcoin"
-                );
+                //const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/Bitcoin`)
+
+                const response = await fetch(`${apiBaseUrl}/api/Bitcoin`);
 
                 const data = await response.json();
 

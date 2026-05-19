@@ -54,9 +54,7 @@ export function useRomeWeather(): RomeWeatherState {
             try {
                 setLoading(true);
 
-                const response = await fetch(
-                    "http://localhost:5000/api/weather/rome"
-                );
+                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/weather/rome`);
 
                 if (!response.ok) {
                     throw new Error("Weather request failed");
