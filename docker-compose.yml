@@ -1,0 +1,50 @@
+services:
+  api:
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile
+    container_name: daily-dashboard-api
+    ports:
+      - "5000:10000"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:10000
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=dailydashboard;Username=postgres;Password=postgres
+      Serilog__SeqUrl: http://seq
+    depends_on:
+      postgres:
+        condition: service_healthy
+      seq:
+        condition: service_started
+
+  postgres:
+    image: postgres:16
+    container_name: daily-dashboard-postgres
+    environment:
+      POSTGRES_DB: dailydashboard
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d dailydashboard"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  seq:
+    image: datalust/seq:latest
+    container_name: daily-dashboard-seq
+    environment:
+      ACCEPT_EULA: Y
+      SEQ_FIRSTRUN_NOAUTHENTICATION: true
+    ports:
+      - "5341:80"
+    volumes:
+      - seq_data:/data
+
+volumes:
+  postgres_data:
+  seq_data:

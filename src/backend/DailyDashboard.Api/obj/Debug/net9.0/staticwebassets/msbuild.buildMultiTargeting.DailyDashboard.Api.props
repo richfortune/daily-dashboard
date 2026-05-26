@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\DailyDashboard.Api.props" />
-</Project>

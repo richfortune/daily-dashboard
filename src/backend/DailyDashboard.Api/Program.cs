@@ -1,4 +1,5 @@
 using DailyDashboard.Application.Interfaces;
+using DailyDashboard.Infrastructure;
 using DailyDashboard.Infrastructure.Services;
 using Serilog;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -7,11 +8,14 @@ using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var seqUrl = builder.Configuration["Serilog:SeqUrl"] ?? "http://localhost:5341";
+
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .Enrich.WithMachineName()
     .Enrich.WithThreadId()
     .WriteTo.Console()
+    .WriteTo.Seq(seqUrl)
     .CreateLogger();
 
 builder.Host.UseSerilog();
@@ -20,6 +24,9 @@ builder.Host.UseSerilog();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
+
+// Register Infrastructure services
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // Register HttpClient and Services
 builder.Services.AddHttpClient<IBitcoinService, CoinbaseBitcoinService>();
@@ -43,8 +50,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseSerilogRequestLogging();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -59,6 +64,8 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseSerilogRequestLogging();
+
 app.UseCors("FrontendPolicy");
 
 app.UseAuthorization();
@@ -70,7 +77,7 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     ResponseWriter = async (context, report) =>
     {
         context.Response.ContentType = "application/json";
-        
+
         var response = new
         {
             status = report.Status.ToString(),
