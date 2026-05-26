@@ -65,8 +65,9 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        Log.Fatal(ex, "Si è verificato un errore critico durante l'esecuzione delle migrazioni del database.");
-        throw;
+        //Log.Fatal(ex, "Si è verificato un errore critico durante l'esecuzione delle migrazioni del database.");
+        //throw;
+        Log.Error(ex, "Errore durante le migrazioni del database. L'applicazione continuerà l'avvio.");
     }
 }
 
