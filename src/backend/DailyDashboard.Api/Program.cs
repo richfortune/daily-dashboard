@@ -1,6 +1,8 @@
 using DailyDashboard.Application.Interfaces;
 using DailyDashboard.Infrastructure;
+using DailyDashboard.Infrastructure.Persistence;
 using DailyDashboard.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using System.Text.Json;
@@ -49,6 +51,24 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Applica le migrazioni pendenti all'avvio dell'applicazione
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<DailyDashboardDbContext>();
+        Log.Information("Avvio delle migrazioni del database...");
+        context.Database.Migrate();
+        Log.Information("Migrazioni del database completate con successo.");
+    }
+    catch (Exception ex)
+    {
+        Log.Fatal(ex, "Si è verificato un errore critico durante l'esecuzione delle migrazioni del database.");
+        throw;
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
