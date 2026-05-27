@@ -18,6 +18,7 @@ public static class DependencyInjection
                 b => b.MigrationsAssembly(typeof(DailyDashboardDbContext).Assembly.FullName)));
 
         services.AddScoped<IBitcoinPriceHistoryService, BitcoinPriceHistoryService>();
+        services.AddScoped<IBitcoinPriceHistoryQueryService, BitcoinPriceHistoryQueryService>();
 
         return services;
     }

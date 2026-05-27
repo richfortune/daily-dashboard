@@ -1,3 +1,4 @@
+using DailyDashboard.Application.DTOs;
 using DailyDashboard.Application.Interfaces;
 using DailyDashboard.Domain.Entities;
 using DailyDashboard.Infrastructure.Persistence;
@@ -15,7 +16,7 @@ public class BitcoinPriceHistoryService : IBitcoinPriceHistoryService
         _dbContext = dbContext;
     }
 
-    public async Task SavePriceHistoryAsync(decimal price, string currency, string source)
+    public async Task<BitcoinPriceHistoryDto> SavePriceHistoryAsync(decimal price, string currency, string source)
     {
         var history = new BitcoinPriceHistory
         {
@@ -27,5 +28,14 @@ public class BitcoinPriceHistoryService : IBitcoinPriceHistoryService
 
         _dbContext.BitcoinPriceHistories.Add(history);
         await _dbContext.SaveChangesAsync();
+
+        return new BitcoinPriceHistoryDto
+        {
+            Id = history.Id,
+            Price = history.Price,
+            Currency = history.Currency,
+            Source = history.Source,
+            Timestamp = history.Timestamp
+        };
     }
 }

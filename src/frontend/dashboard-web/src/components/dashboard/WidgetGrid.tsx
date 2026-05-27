@@ -1,4 +1,5 @@
 import DashboardCard from "./DashboardCard";
+import BitcoinHistoryChart from "./BitcoinHistoryChart";
 import { widgets } from "../../data/mockWidgets";
 import { useBitcoinPrice } from "../../hooks/useBitcoinPrice";
 import { useRomeWeather } from "../../hooks/useRomeWeather";
@@ -29,15 +30,17 @@ function WidgetGrid() {
                 {widgets.map((widget) => {
                     if (widget.title === "Bitcoin") {
                         return (
-                            <DashboardCard
-                                key={widget.id}
-                                title="Bitcoin"
-                                value={price}
-                                isLoading={bitcoinLoading}
-                                isError={!!bitcoinError}
-                                lastUpdated={bitcoinUpdated}
-                                backgroundColor={widget.backgroundColor}
-                            />
+                            <div key={widget.id} style={{ display: "contents" }}>
+                                <DashboardCard
+                                    title="Bitcoin"
+                                    value={price}
+                                    isLoading={bitcoinLoading}
+                                    isError={!!bitcoinError}
+                                    lastUpdated={bitcoinUpdated}
+                                    backgroundColor={widget.backgroundColor}
+                                />
+                                <BitcoinHistoryChart />
+                            </div>
                         );
                     }
 
