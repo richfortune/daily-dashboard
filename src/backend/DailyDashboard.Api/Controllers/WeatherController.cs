@@ -36,4 +36,60 @@ public class WeatherController : ControllerBase
             throw;
         }
     }
+
+    [HttpGet("current")]
+    public async Task<ActionResult<WeatherCurrentDto>> GetCurrentWeather([FromQuery] string city)
+    {
+        _logger.LogInformation("Inizio richiesta per ottenere il meteo corrente per la città: {City}", city);
+        if (string.IsNullOrWhiteSpace(city))
+        {
+            return BadRequest("Il parametro 'city' è obbligatorio");
+        }
+
+        try
+        {
+            var weather = await _weatherService.GetCurrentWeatherByCityAsync(city);
+            if (weather == null)
+            {
+                _logger.LogWarning("Meteo corrente non trovato per la città: {City}", city);
+                return NotFound($"Località non trovata: {city}");
+            }
+
+            _logger.LogInformation("Meteo corrente recuperato con successo per {City}. Temp: {Temp}", city, weather.Temperature);
+            return Ok(weather);
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex, "Errore durante il recupero del meteo corrente per {City}", city);
+            throw;
+        }
+    }
+
+    [HttpGet("tomorrow")]
+    public async Task<ActionResult<WeatherTomorrowDto>> GetTomorrowWeather([FromQuery] string city)
+    {
+        _logger.LogInformation("Inizio richiesta per ottenere il meteo di domani per la città: {City}", city);
+        if (string.IsNullOrWhiteSpace(city))
+        {
+            return BadRequest("Il parametro 'city' è obbligatorio");
+        }
+
+        try
+        {
+            var weather = await _weatherService.GetTomorrowWeatherByCityAsync(city);
+            if (weather == null)
+            {
+                _logger.LogWarning("Meteo di domani non trovato per la città: {City}", city);
+                return NotFound($"Località non trovata: {city}");
+            }
+
+            _logger.LogInformation("Meteo di domani recuperato con successo per {City}.", city);
+            return Ok(weather);
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex, "Errore durante il recupero del meteo di domani per {City}", city);
+            throw;
+        }
+    }
 }

@@ -3,7 +3,7 @@ import WidgetGrid from "../components/dashboard/WidgetGrid";
 
 function DashboardPage() {
     return (
-        <AppShell>
+        <AppShell activePage="Dashboard" onPageChange={() => {}}>
             <WidgetGrid />
         </AppShell>
     );

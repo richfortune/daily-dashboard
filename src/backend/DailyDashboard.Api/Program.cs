@@ -32,7 +32,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 // Register HttpClient and Services
 builder.Services.AddHttpClient<IBitcoinService, CoinbaseBitcoinService>();
-builder.Services.AddHttpClient<IWeatherService, OpenMeteoWeatherService>();
+builder.Services.AddHttpClient<IWeatherService, WeatherService>();
 
 // Configure CORS for Frontend
 builder.Services.AddCors(options =>

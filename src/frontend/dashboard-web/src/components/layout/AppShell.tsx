@@ -2,9 +2,11 @@ import Sidebar from "./Sidebar";
 
 type Props = {
     children: React.ReactNode;
+    activePage: string;
+    onPageChange: (page: string) => void;
 };
 
-function AppShell({ children }: Props) {
+function AppShell({ children, activePage, onPageChange }: Props) {
     return (
         <div
             style={{
@@ -13,7 +15,7 @@ function AppShell({ children }: Props) {
             }}
         >
             <div className="app-layout">
-                <Sidebar />
+                <Sidebar activePage={activePage} onPageChange={onPageChange} />
 
                 <div>
                     <header className="app-header">

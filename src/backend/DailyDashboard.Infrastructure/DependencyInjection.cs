@@ -19,6 +19,7 @@ public static class DependencyInjection
 
         services.AddScoped<IBitcoinPriceHistoryService, BitcoinPriceHistoryService>();
         services.AddScoped<IBitcoinPriceHistoryQueryService, BitcoinPriceHistoryQueryService>();
+        services.AddScoped<IWeatherFavoriteLocationService, WeatherFavoriteLocationService>();
 
         return services;
     }

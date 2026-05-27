@@ -11,6 +11,7 @@ public class DailyDashboardDbContext : DbContext
     }
 
     public DbSet<BitcoinPriceHistory> BitcoinPriceHistories { get; set; }
+    public DbSet<WeatherFavoriteLocation> WeatherFavoriteLocations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
